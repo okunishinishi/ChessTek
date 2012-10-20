@@ -1,0 +1,932 @@
+
+/***** board ******/
+#play-box .board{
+    margin: 30px 150px 30px 0;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    border-radius: 2px;
+    position: relative;
+    padding: 25px;
+    background-color: #FEFED0;
+    display: inline-block;
+}
+#play-box .board.on-select{
+    cursor: -moz-grabbing;
+}
+
+#play-box .board[data-owner=none]:before,
+#play-box .board[data-owner=ai]:before{
+    left: 0;
+    top:0;
+    width:100%;
+    height: 100%;
+    z-index: 201;
+    background: transparent;
+    content: "";
+    position: absolute;
+}
+#play-box .board.covered:before{
+    left: 0;
+    top:0;
+    width:100%;
+    height: 100%;
+    z-index: 88;
+    background-color: rgba(0,0,0,0.3);
+    content: "";
+    position: absolute;
+}
+#play-box .board.covered.transparent:before{
+    background-color:transparent;
+}
+#play-box .board table{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+#play-box .board td{
+    padding: 0;
+}
+#play-box .board .square{
+    width:60px;
+    height: 60px;
+    border-radius: 1px;
+    text-align: center;
+    position: relative;
+}
+#play-box .board .square:before{
+    position: absolute;
+    content: "";
+    width:100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    display: none;
+}
+#play-box .board.on-choice .square:before{
+    display: block;
+    background: rgba(0,0,0,0.1);
+}
+#play-box .board.on-select .square:before{
+    display: block;
+    background: rgba(0,0,0,0.2);
+}
+#play-box .board .square.movable{
+    cursor: pointer;
+}
+#play-box .board .square.movable:before{
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.1);
+    background-color: rgba(255,255,255,0.1);
+}
+#play-box .board .square.movable:hover:before{
+    box-shadow: 0 0 30px 5px rgba(255, 255, 255, 0.6);
+    background-color: rgba(255,255,255,0.3);
+}
+#play-box .board .square.attackable:before{
+    box-shadow: 0 0 20px 5px rgba(255, 235, 0, 0.1);
+    background-color: rgba(255, 235, 0, 0.05);
+}
+#play-box .board .square.attackable:hover:before{
+    box-shadow: 0 0 20px 5px rgba(255, 235, 0, 0.4);
+    background-color: rgba(255, 235, 0, 0.10);
+}
+#play-box .board .square.disallowed:before{
+    /*box-shadow: 0 0 20px 5px rgba(100, 0, 0, 0.1);*/
+    /*background-color: rgba(255, 0, 0, 0.29);*/
+}
+#play-box .board .square.disallowed:hover:before{
+    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.4);
+    background-color: rgba(200, 0, 0, 0.5);
+}
+
+#play-box .board .square.check:before{
+}
+
+#play-box .board .square.movable.ready:before{
+    display: block;
+    background-color:orange;
+}
+
+#play-box .board .square > .message{
+    position: absolute;
+    top: -5px;
+    right: -30px;
+    text-shadow: 1px 1px 2px rgba(233, 200, 200, 0.64);
+    color: #2B2B28;
+    -moz-transform: rotate(20deg);
+    -webkit-transform: rotate(20deg);
+    -o-transform: rotate(20deg);
+    -ms-transform: rotate(20deg);
+    transform: rotate(20deg);
+    z-index: 105;
+}
+
+#play-box .board .square[data-color=light]{
+    background-color: #FEFED0;
+}
+#play-box .board .square[data-color=dark]{
+    background-color: #C0853A;
+}
+
+#play-box .board .frame-bar{
+    position: absolute;
+    background-color: #7a481a;
+    z-index: 2;
+}
+#play-box .board .frame-bar[data-dir=top],
+#play-box .board .frame-bar[data-dir=bottom]{
+    left:0;
+    width:100%;
+    height: 25px;
+    background-image: -webkit-linear-gradient(#92561F, #7A481A);
+    background-image: -moz-linear-gradient(#92561F, #7A481A);
+    background-image: -o-linear-gradient(#92561F, #7A481A);
+    background-image: -ms-linear-gradient(#92561F, #7A481A);
+    background-image: linear-gradient(#92561F, #7A481A);
+}
+#play-box .board .frame-bar[data-dir=left],
+#play-box .board .frame-bar[data-dir=right]{
+    top:0;
+    width:25px;
+    height:100%;
+    background-image: -webkit-linear-gradient(left, #92561F, #7A481A);
+    background-image: -moz-linear-gradient(left, #92561F, #7A481A);
+    background-image: -o-linear-gradient(left, #92561F, #7A481A);
+    background-image: -ms-linear-gradient(left, #92561F, #7A481A);
+    background-image: linear-gradient(left, #92561F, #7A481A);
+}
+#play-box .board .frame-bar[data-dir=top]{
+    top:0;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+#play-box .board .frame-bar[data-dir=right]{
+    right: 0;
+}
+#play-box .board .frame-bar[data-dir=bottom]{
+    bottom: 0;
+}
+#play-box .board .frame-bar[data-dir=left]{
+    left: 0;
+}
+#play-box .board .frame-bar[data-dir=left]:before{
+    content: "";
+    top:25px;
+    left:0;
+    width:100%;
+    height: 491px;
+    position: absolute;
+    box-shadow: 3px 0px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+#play-box .board[data-message=ai] .frame-bar[data-dir=top]:after{
+    content: "AI thinking...";
+    position: absolute;
+    left: 30px;
+    top:3px;
+    color: #bb9759;
+    font-style: italic;
+}
+#play-box .board[data-message=you] .frame-bar[data-dir=bottom]:after{
+    content: "your turn";
+    position: absolute;
+    right: 30px;
+    top:3px;
+    color: #c4c2ae;
+    font-style: italic;
+}
+
+/*****　piece *****/
+#play-box .piece{
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    padding: 5px;
+    display: inline-block;
+    position: absolute;
+    top:2px;
+    left:2px;
+    border:1px solid transparent;
+    z-index: 5;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    -o-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+#play-box .piece.selected{
+    z-index: 20;
+    pointer-events:none;;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    cursor: -moz-grabbing;
+}
+#play-box .piece.selectable{
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    cursor: -moz-grab;
+}
+#play-box .piece.blight:before{
+    position: absolute;
+    content: "";
+    left: 0;
+    top:0;
+    width:100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255,255,255,0.7);
+}
+
+
+#play-box .piece .piece-inner{
+    width:45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2) inset;
+    text-align: center;
+}
+
+#play-box .piece[data-color=black]{
+    background-color: #4D2C0F;
+    background-image:-webkit-linear-gradient(#57402A, #361C02);
+    background-image:-moz-linear-gradient(#57402A, #361C02);
+    background-image:-o-linear-gradient(#57402A, #361C02);
+    background-image:-ms-linear-gradient(#57402A, #361C02);
+    background-image:linear-gradient(#57402A, #361C02);
+    border-color: #3A1C00;
+}
+#play-box .piece[data-color=black] .piece-inner,
+#play-box .piece[data-color=black] .parts.cut{
+    background: #462D13;
+}
+#play-box .piece[data-color=black] .parts,
+#play-box .piece[data-color=black] .foot:after,
+#play-box .piece[data-color=black] .body:before,
+#play-box .piece[data-color=black] .body:after,
+#play-box .piece[data-color=black] .head:before,
+#play-box .piece[data-color=black] .head:after,
+#play-box .piece[data-color=black] .needle:before,
+#play-box .piece[data-color=black] .needle:after,
+#play-box .piece[data-color=black] .needle-inner:before{
+    background-color: #F0EDE7;
+}
+
+#play-box .piece[data-color=white]{
+    background-color: #F0EDE7;
+    border-color: #FFFCF5;
+    background-image:-webkit-linear-gradient(#FFFFFE, #E4DDD1);
+    background-image:-moz-linear-gradient(#FFFFFE, #E4DDD1);
+    background-image:-o-linear-gradient(#FFFFFE, #E4DDD1);
+    background-image:-ms-linear-gradient(#FFFFFE, #E4DDD1);
+    background-image:linear-gradient(#FFFFFE, #E4DDD1);
+}
+#play-box .piece[data-color=white] .piece-inner,
+#play-box .piece[data-color=white] .parts.cut{
+    background-color: #F1EEE7;
+}
+#play-box .piece[data-color=white] .parts,
+#play-box .piece[data-color=white] .foot:after,
+#play-box .piece[data-color=white] .head:before,
+#play-box .piece[data-color=white] .head:after,
+#play-box .piece[data-color=white] .body:before,
+#play-box .piece[data-color=white] .body:after,
+#play-box .piece[data-color=white] .needle:before,
+#play-box .piece[data-color=white] .needle:after,
+#play-box .piece[data-color=white] .needle-inner:before{
+    background-color: #403311;
+}
+#play-box .piece .icon{
+    position: relative;
+    top:5px;
+}
+#play-box .piece .parts{
+    margin: 0 auto;
+}
+#play-box .piece .foot{
+    width:18px;
+    height: 5px;
+    border-radius: 2px 2px 1px 1px;
+    position: relative;
+}
+#play-box .piece .foot:after{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    border-radius: 48%;
+    bottom: -2px;
+    height: 4px;
+    content: "";
+}
+
+/* pawn */
+#play-box .piece[data-type=pawn] .icon{
+    top:8px;
+}
+#play-box .piece[data-type=pawn] .head{
+    width:10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-bottom: -1px;
+}
+#play-box .piece[data-type=pawn] .neck{
+    width:11px;
+    height: 3px;
+    border-radius: 50%;
+    margin-bottom: -4px;
+}
+#play-box .piece[data-type=pawn] .body{
+    height: 14px;
+    width:5px;
+    position: relative;
+}
+#play-box .piece[data-type=pawn] .body:before,
+#play-box .piece[data-type=pawn] .body:after{
+    content: "";
+    height: 18px;
+    position: absolute;
+    width: 3px;
+}
+#play-box .piece[data-type=pawn] .body:before{
+    -moz-transform: skew(-8deg);
+    -webkit-transform: skew(-8deg);
+    -o-transform: skew(-8deg);
+    -ms-transform: skew(-8deg);
+    transform: skew(-8deg);
+    left: -1px;
+}
+#play-box .piece[data-type=pawn] .body:after{
+    right: -1px;
+    -moz-transform: skew(8deg);
+    -webkit-transform: skew(8deg);
+    -o-transform: skew(8deg);
+    -ms-transform: skew(8deg);
+    transform: skew(8deg);
+}
+#play-box .piece[data-type=pawn] .foot{
+    height: 4px;
+    width:13px;
+}
+
+
+/* rook */
+#play-box .piece[data-type=rook] .icon{
+    top:6px;
+}
+#play-box .piece[data-type=rook] .hat{
+    height: 3px;
+    width:24px;
+    position: relative;
+    background: transparent;
+}
+#play-box .piece[data-type=rook] .hat-block-0,
+#play-box .piece[data-type=rook] .hat-block-1,
+#play-box .piece[data-type=rook] .hat-block-2
+{
+    position: absolute;
+    height: 4px;
+    width:5px;
+    top:0;
+}
+#play-box .piece[data-type=rook] .hat-block-0{
+    left: 0;
+}
+#play-box .piece[data-type=rook] .hat-block-1{
+    left:9px;
+    width:6px;
+}
+#play-box .piece[data-type=rook] .hat-block-2{
+    right: 0;
+}
+
+#play-box .piece[data-type=rook] .head{
+    width:24px;
+    height: 7px;
+    margin-bottom: -1px;
+    border-radius: 0 0 1px 1px;
+}
+#play-box .piece[data-type=rook] .body{
+    height: 14px;
+    width:12px;
+    position: relative;
+}
+#play-box .piece[data-type=rook] .body:before,
+#play-box .piece[data-type=rook] .body:after
+{
+    position: absolute;
+    width:5px;
+    height: 100%;
+    bottom:0;
+    content: "";
+}
+#play-box .piece[data-type=rook] .body:before{
+    left: -1px;
+    -moz-transform:skew(-3deg);
+    -webkit-transform:skew(-3deg);
+    -o-transform:skew(-3deg);
+    transform:skew(-3deg);
+}
+#play-box .piece[data-type=rook] .body:after{
+    right: -1px;
+    -moz-transform:skew(3deg);
+    -webkit-transform:skew(3deg);
+    -o-transform:skew(3deg);
+    transform:skew(3deg);
+}
+
+
+#play-box .piece[data-type=rook] .foot{
+    width:25px;
+    height: 7px;
+}
+/* knight */
+#play-box .piece[data-type=knight] .nose{
+
+}
+#play-box .piece[data-type=knight] .ear{
+    -moz-transform: skew(30deg);
+    -webkit-transform: skew(30deg);
+    -o-transform: skew(30deg);
+    -ms-transform: skew(30deg);
+    transform: skew(30deg);
+    height: 3px;
+    left: -3px;
+    position: relative;
+    width: 3px;
+    margin-bottom: -2px;
+}
+#play-box .piece[data-type=knight] .head{
+    width:9px;
+    height: 12px;
+    -moz-transform:skew(-30deg);
+    -webkit-transform:skew(-30deg);
+    -o-transform:skew(-30deg);
+    transform:skew(-30deg);
+    float: left;
+    margin: 2px 12px;
+    border-radius:3px 0 1px 2px;
+}
+#play-box .piece[data-type=knight] .neck{
+    -moz-transform: skew(10deg);
+    -webkit-transform: skew(10deg);
+    -ms-transform: skew(10deg);
+    -o-transform: skew(10deg);
+    transform: skew(10deg);
+    border-radius: 0 8px 0 0;
+    height: 21px;
+    left: 4px;
+    margin-bottom: -5px;
+    position: relative;
+    width: 13px;
+}
+#play-box .piece[data-type=knight] .neck-2{
+    float: right;
+    height: 10px;
+    width: 4px;
+    margin-right: 12px;
+    -moz-transform:skew(10deg);
+    -webkit-transform:skew(10deg);
+    -o-transform:skew(10deg);
+    -ms-transform:skew(10deg);
+    transform:skew(10deg);
+    margin-bottom: -4px;
+}
+
+#play-box .piece[data-type=knight] .body{
+    -moz-transform: skew(-30deg);
+    -webkit-transform: skew(-30deg);
+    -o-transform: skew(-30deg);
+    -ms-transform: skew(-30deg);
+    transform: skew(-30deg);
+    border-radius: 6px 10px 1px 0;
+    height: 10px;
+    margin-bottom: -1px;
+    width: 16px;
+    position: relative;
+    left: 3px;
+}
+#play-box .piece[data-type=knight] .foot{
+    width:24px;
+    position: relative;
+    left: 1px;
+}
+
+
+/* bishop */
+#play-box .piece[data-type=bishop] .hat{
+    width:2px;
+    height: 6px;
+    border-radius: 50% 50% 0 0;
+    margin-bottom: -3px;
+}
+#play-box .piece[data-type=bishop] .head{
+    width:10px;
+    height: 13px;
+    border-radius: 50% 50% 45% 45%;
+    margin-bottom: -2px;
+}
+#play-box .piece[data-type=bishop] .cut{
+    height: 8px;
+    position: absolute;
+    right: 18px;
+    top: 3px;
+    width: 2px;
+    -moz-transform:skew(-35deg);
+    -webkit-transform:skew(-35deg);
+    -o-transform:skew(-35deg);
+    -ms-transform:skew(-35deg);
+    transform:skew(-35deg);
+}
+#play-box .piece[data-type=bishop] .neck{
+    width:15px;
+    height: 3px;
+    border-radius: 50%;
+    margin-bottom: -2px;
+}
+#play-box .piece[data-type=bishop] .body{
+    width:5px;
+    height: 13px;
+    position: relative;
+}
+#play-box .piece[data-type=bishop] .body:before,
+#play-box .piece[data-type=bishop] .body:after{
+    content: "";
+    height: 18px;
+    position: absolute;
+    width: 3px;
+}
+#play-box .piece[data-type=bishop] .body:before{
+    -moz-transform: skew(-9deg);
+    -webkit-transform: skew(-9deg);
+    -o-transform: skew(-9deg);
+    -ms-transform: skew(-9deg);
+    transform: skew(-9deg);
+    left: -2px;
+}
+#play-box .piece[data-type=bishop] .body:after{
+    right: -2px;
+    -moz-transform: skew(9deg);
+    -webkit-transform: skew(9deg);
+    -o-transform: skew(9deg);
+    -ms-transform: skew(9deg);
+    transform: skew(9deg);
+}
+#play-box .piece[data-type=bishop] .foot{
+    width:19px;
+}
+
+
+/* queen */
+#play-box .piece[data-type=queen] .crown{
+    position: relative;
+    height: 22px;
+    width:25px;
+    background-color: transparent;
+}
+#play-box .piece[data-type=queen] .needle:before{
+    content: "";
+    position: absolute;
+    width:4px;
+    height: 4px;
+    border-radius: 50%;
+    left:1.5px;
+    top:0px;
+}
+#play-box .piece[data-type=queen] .needle:after{
+    content: "";
+    position: absolute;
+    width:2px;
+    height: 14px;
+    top:5px;
+    left: 3px;
+    /*background: #008000;*/
+}
+#play-box .piece[data-type=queen] .needle{
+    position: absolute;
+    height: 20px;
+    width: 8px;
+    left: 9px;
+    background-color: transparent;
+}
+#play-box .piece[data-type=queen] .needle-inner{
+    width:50%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    position: relative;
+}
+#play-box .piece[data-type=queen] .needle-inner:before{
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+#play-box .piece[data-type=queen] .needle-inner.left:before{
+    -moz-transform: skew(-10deg);
+    -webkit-transform: skew(-10deg);
+    -o-transform: skew(-10deg);
+    -ms-transform: skew(-10deg);
+    transform: skew(-10deg);
+    left: 50%;
+}
+#play-box .piece[data-type=queen] .needle-inner.right:before{
+    -moz-transform: skew(10deg);
+    -webkit-transform: skew(10deg);
+    -o-transform: skew(10deg);
+    -ms-transform: skew(10deg);
+    transform: skew(10deg);
+    right: 50%;
+}
+#play-box .piece[data-type=queen] .needle-0{
+    -moz-transform:rotate(-30deg);
+    -webkit-transform:rotate(-30deg);
+    -o-transform:rotate(-30deg);
+    -ms-transform:rotate(-30deg);
+    transform:rotate(-30deg);
+    left:-1px;
+    top:3px;
+}
+#play-box .piece[data-type=queen] .needle-1{
+    -moz-transform:rotate(-10deg);
+    -webkit-transform:rotate(-10deg);
+    -o-transform:rotate(-10deg);
+    transform:rotate(-10deg);
+    left:5px;
+    top:0px;
+}
+#play-box .piece[data-type=queen] .needle-2{
+    display: none;
+}
+#play-box .piece[data-type=queen] .needle-3{
+    -moz-transform:rotate(10deg);
+    -webkit-transform:rotate(10deg);
+    -o-transform:rotate(10deg);
+    -ms-transform:rotate(10deg);
+    transform:rotate(10deg);
+    left:13px;
+    top:0px;
+}
+#play-box .piece[data-type=queen] .needle-4{
+    -moz-transform:rotate(30deg);
+    -webkit-transform:rotate(30deg);
+    -o-transform:rotate(30deg);
+    -ms-transform:rotate(30deg);
+    transform:rotate(30deg);
+    left:19px;
+    top:3px;
+}
+#play-box .piece[data-type=queen] .body{
+    width:17.5px;
+    border-radius: 50% 50% 2px 2px;
+    height: 8px;
+    margin-top: -5px;
+    z-index: 100;
+}
+#play-box .piece[data-type=queen] .foot{
+    width:21px;
+    left: 1px;
+}
+
+
+/* king */
+#play-box .piece[data-type=king] .cross{
+    position: relative;
+    height: 8px;
+    width:8px;
+    margin: 0 auto;
+    background-color: transparent;
+}
+#play-box .piece[data-type=king] .cross-bar-vertical{
+    position: absolute;
+    width:40%;
+    left:30%;
+    height: 125%;
+}
+#play-box .piece[data-type=king] .cross-bar-horizontal{
+    height: 30%;
+    position: absolute;
+    top: 25%;
+    width: 100%;
+}
+#play-box .piece[data-type=king] .head:before,
+#play-box .piece[data-type=king] .head:after
+{
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    width:16px;
+    height: 16px;
+    top:-3px;
+}
+#play-box .piece[data-type=king] .head:before{
+    left:-3px;
+    border-radius: 50% 50% 0 9px;
+}
+#play-box .piece[data-type=king] .head:after{
+    right:-3px;
+    border-radius: 50% 50% 9px 0;
+}
+#play-box .piece[data-type=king] .head{
+    position: relative;
+    border-radius: 40% 40% 40% 40%;
+    width:20px;
+    height: 16px;
+    margin-top: 3px;
+    margin-bottom: -3px;
+}
+#play-box .piece[data-type=king] .body{
+    width:16px;
+    height: 2px;
+    margin-top: -2px;
+}
+#play-box .piece[data-type=king] .foot{
+    width:20px;
+}
+
+
+#play-box .piece[data-type=king].highlight:after{
+    width:100%;
+    height: 100%;
+    left:-5px;
+    top:-4px;
+    position: absolute;
+    z-index: 3;
+    content: "";
+    border-radius: 50%;
+}
+#play-box .piece[data-type=king].highlight.in-danger:after{
+    background-color: rgba(250, 0, 0, 0.47);
+    border: 5px solid rgba(250, 0, 0, 0.60);
+}
+#play-box .piece[data-type=king].highlight.in-pinch:after{
+    background-color: rgba(250, 0, 0, 0.27);
+    border: 5px solid rgba(250, 0, 0, 0.30);
+}
+
+/*** tomb ***/
+#play-box .tomb{
+    max-width:86px;
+    max-height: 103px;
+    position: absolute;
+    background: #FFF;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.2) inset;
+    right:-110px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px 3px;
+}
+#play-box .tomb:before{
+    position: absolute;
+    content: "";
+    left: 0;
+    top:0;
+    width:100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.4);
+    z-index: 101;
+}
+#play-box .tomb[data-color=white]{
+    top:0px;
+    background-color: #F1EEE7;
+    color: #3A1C00;
+}
+#play-box .tomb[data-color=black]{
+    bottom: 0px;
+    background-color: #3A1C00;
+    color: #F1EEE7;
+}
+
+
+#play-box .tomb .tomb-item{
+    float: left;
+    overflow: hidden;
+    height: 35px;
+}
+#play-box .tomb .piece.dead{
+    position: static;
+    box-shadow: none;
+    background-image: none;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    width:32px;
+    height: 33px;
+    overflow: hidden;
+}
+#play-box .tomb .piece.dead .piece-inner{
+    background: none;
+    position: relative;
+    box-shadow: none;
+    border-radius: 0;
+    height: 20px;
+    left:-5px;
+    top:-4px;
+}
+#play-box .tomb .count{
+    line-height: 47px;
+    display: inline-block;
+    float: right;
+}
+
+/**** promotion-choice ****/
+#play-box .promotion-choice{
+    position: absolute;
+    left:170px;
+    top:120px;
+    z-index: 200;
+    box-shadow: 10px 10px 24px rgba(0,0,0,0.7);
+    background-color: transparent;
+    border-radius: 10px;
+}
+#play-box .promotion-choice .title{
+    width:100%;
+    text-align: center;
+    margin: 0;
+    padding: 0.5em 0;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    border-bottom: 1px solid transparent;
+    cursor: default;
+}
+#play-box .promotion-choice .promotion-choice-inner{
+    background-color: rgba(255, 255, 205, 0.8);
+    padding: 5px 25px 5px;
+    text-align: center;
+    border-radius: 0 0 10px 10px
+}
+#play-box .promotion-choice[data-color=black] .title{
+    background-color: #361C02;
+    background-image: -webkit-linear-gradient(#4B2806,#160B00);
+    background-image: -ms-linear-gradient(#4B2806,#160B00);
+    background-image: -o-linear-gradient(#4B2806,#160B00);
+    background-image: -moz-linear-gradient(#4B2806,#160B00);
+    background-image: linear-gradient(#4B2806,#160B00);
+    border-bottom-color: #361C02;
+    color: #96837A;
+}
+#play-box .promotion-choice[data-color=white] .title{
+    background-color: #F0EDE7;
+    background-image: -webkit-linear-gradient(white, #CEC6B6);
+    border-bottom-color:#F0EDE7;
+    color: #36271f;
+}
+#play-box .promotion-choice[data-color=black] .promotion-choice-inner{
+    background-color: #361C02;
+    color: #F0EDE7;
+}
+#play-box .promotion-choice[data-color=white] .promotion-choice-inner{
+    background-color: #F0EDE7;
+    color:#361C02;
+}
+#play-box .promotion-choice .or{
+    position: relative;
+    top:-25px;
+}
+
+#play-box .promotion-choice .piece{
+    position: static;
+    background:none;
+    box-shadow: none;
+    border: none;
+    padding: 5px 0;
+    margin: 0 10px;
+}
+#play-box .promotion-choice .piece .piece-inner{
+    background-color: transparent;
+    border-radius: 1px;
+    margin: 0;
+    padding: 0;
+    background:none;
+    border-bottom: 5px solid transparent;
+    box-shadow: none;
+    cursor: pointer;
+}
+#play-box .promotion-choice .piece[data-color=white]:hover .piece-inner{
+    border-color: #361C02;
+}
+#play-box .promotion-choice .piece[data-color=white]:active .piece-inner{
+    border-color: #522b03;
+}
+#play-box .promotion-choice .piece[data-color=black]:hover .piece-inner{
+    border-color: #F0EDE7;
+}
+#play-box .promotion-choice .piece[data-color=black]:active .piece-inner{
+    border-color: #bdbab6;
+}
+
+/*** gameover-panel ***/
+#play-box .gameover-panel{
+    position: absolute;
+    background-color:rgba(0,0,0,0.4);
+    z-index: 101;
+    text-align: center;
+    color: #EEE;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+#play-box .gameover-panel h1{
+    margin-top: 140px;
+    font-size: 3em;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    color: #FAFAFA;
+}

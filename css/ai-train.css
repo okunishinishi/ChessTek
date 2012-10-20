@@ -1,0 +1,110 @@
+html{
+    margin: 0;
+    padding: 0;
+}
+body{
+    color: #433;
+    margin: 0;
+}
+
+article#main-content{
+    float: left;
+    background-color: #FAFAF0;
+    padding: 30px 50px;
+}
+
+a.btn{
+    padding: 0.5em 1em;
+    margin: 2px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    border: 1px solid #D0D0D0;
+    background-color: #F0F0F0;
+    background-image: -webkit-linear-gradient(#FFF, #E0E0E0);
+    background-image: -moz-linear-gradient(#FFF, #E0E0E0);
+    background-image: -o-linear-gradient(#FFF, #E0E0E0);
+    background-image: -ms-linear-gradient(#FFF, #E0E0E0);
+    border-radius: 2px;
+    cursor: pointer;
+}
+a.btn.disabled{
+    background-image: none;
+    background-color: #EEE;
+    color: #CCC;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1) inset;
+    cursor: default;
+}
+a.btn:active{
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.4) inset;
+}
+a.btn.large{
+    font-size: 3em;
+    margin: 10px 50px;
+    display: inline-block;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+fieldset{
+    margin: 10px;
+    min-width: 300px;
+    min-height: 100px;
+    background: #FDFDFD;
+    max-height: 1000px;
+    overflow-y: scroll;
+}
+
+.record-list-item .key{
+    color: #533;
+}
+.record-list-item .value{
+    color: #ba951b;
+}
+
+.adjust-list-item .key{
+    color: #2a5527;
+}
+.adjust-list-item .value{
+    color: #7aba23;
+}
+
+
+.record-list-item .phase{
+    display: inline-block;
+    width:65px;
+}
+.record-list-item .white,
+.record-list-item .black{
+    display: inline-block;
+    width:55px;
+}
+
+.record-list-item .value[data-value=success]{
+    color: #3341ba;
+}
+.record-list-item .value[data-value=failed]{
+    color: #ba3749;
+}
+.record-list-item .tried{
+    display: inline-block;
+    min-width: 200px;
+}
+select{
+    width:55px;
+}
+#storage-list .key{
+    display: inline-block;
+    color: #888;
+    min-width:120px;
+}
+#storage-list .value {
+    color: #2613B3;
+    display: inline-block;
+    min-width: 50px;
+    text-align: right;
+}
+#storage-list .line{
+    display: block;
+}
+#storage-list .line:nth-child(2n){
+    background: #EEE;
+}

@@ -1,0 +1,17 @@
+html{
+
+}
+body{
+    color: #433;
+}
+
+article#main-content{
+    height: 600px;
+    float: left;
+    background-color: #FAFAF0;
+}
+
+.board[data-owner=none]:before,
+.board[data-owner=ai]:before{
+    display: none;
+}

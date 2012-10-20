@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/ch-1.0.css">
+    <link rel="stylesheet" href="css/ai-train.css">
+
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+
+    <script type="text/javascript" src="js/ch.js"></script>
+    <script type="text/javascript" src="js/ch.enum.js"></script>
+    <script type="text/javascript" src="js/ch.piece.js"></script>
+    <script type="text/javascript" src="js/ch.troop.js"></script>
+    <script type="text/javascript" src="js/ch.record.js"></script>
+    <script type="text/javascript" src="js/ch.game.js"></script>
+    <script type="text/javascript" src="js/ch.scenario.js"></script>
+    <script type="text/javascript" src="js/ch.simulator.js"></script>
+    <script type="text/javascript" src="js/ch.ai.js"></script>
+
+    <script type="text/javascript" src="js/ch.render.js"></script>
+
+    <script type="text/javascript" src="js/ch.test.js"></script>
+    <script type="text/javascript" src="js/ai-train.js"></script>
+
+    <title>ChessTek AI Train</title>
+
+</head>
+<body>
+<article id="main-content">
+
+    <a id="show-storage-btn" class="btn">show result in local storage</a>
+    <br>
+    <br>
+    <br>
+
+    <select id="battle-count">
+        <option value="1">1</option>
+        <option value="10" selected>10</option>
+        <option value="100">100</option>
+        <option value="1000">1000</option>
+        <option value="10000">10000</option>
+    </select>
+    games *
+
+    <br><br>
+
+    <a id="start-btn" class="btn large">start</a>
+
+    <div id="message"></div>
+
+    <fieldset>
+        <legend>result</legend>
+        <ul id="result-list"></ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>record</legend>
+        <ul id="record-list"></ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>adjust</legend>
+        <ul id="adjust-list"></ul>
+    </fieldset>
+
+
+
+</article>
+
+<div id="meta-box">
+    <header>
+        <h1>ChessTek</h1>
+    </header>
+    <footer>
+        <span class="me">
+            Created By
+            <a href="http://techbakery.net">Taka Okunishi</a>
+        </span>
+    </footer>
+</div>
+
+</body>
+</html>

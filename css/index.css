@@ -1,0 +1,72 @@
+html{
+    background: #FCFDE7;
+}
+body{
+    color: #433;
+    display: inline-block;
+    background-color: #F7D8A2;
+    margin:0;
+    padding: 0;
+    border: 1px solid #F5F5F5;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    padding-left: 20px;
+    font-family: Tahoma, Trebuchet MS;
+}
+
+article#main-content{
+    height: 600px;
+    float: left;
+}
+
+#meta-box
+{
+    float: left;
+    background: #442304;
+    color: #B98D3D;
+    height: 100px;
+    width:170px;
+    padding: 5px 20px 10px;
+    position: relative;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+#meta-box a{
+    color: #d8aa76;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    padding: 10px 0;
+}
+.clear{
+    clear: both;
+}
+
+#play-box .cover{
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background: rgba(255,255,255,0.05);
+    text-align: center;
+    cursor: pointer;
+}
+#play-box .cover.active{
+    cursor: default;
+    background: rgba(255,255,255,0.01);
+}
+#start-btn{
+    color: #FFFB94;
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8), 1px 1px 1px rgba(185, 178, 36, 1);
+    font-size: 4em;
+    margin: 120px 20px 0;
+    display: inline-block;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#play-box.highlight .board[data-message=you] .frame-bar[data-dir=bottom]:after{
+    color: #FFF;
+}
