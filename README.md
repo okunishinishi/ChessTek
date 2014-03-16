@@ -1,7 +1,7 @@
 ChessTek
 ========
 
-A chess game written with client side javascript.
+A chess game written in javascript.
 
 Open the index.html with a browser and the game will begin.
 
@@ -9,7 +9,17 @@ Open the index.html with a browser and the game will begin.
 
 ## [Play it now!][ChessTek]
 
-<img src="./img/screenshot.png" width="390" height="280">
+[<img src="./img/screenshot.png" width="390" height="280">][ChessTek]
+
+
+Donation
+-------
+
+[gittip-okunishinishi]: https://www.gittip.com/okunishinishi/
+
+Support this project and [others by okunishinishi][gittip-okunishinishi] via [gittip][gittip-okunishinishi].
+
+[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)][gittip-okunishinishi]
 
 
 
