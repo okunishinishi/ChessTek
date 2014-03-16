@@ -1,7 +1,7 @@
 ChessTek
 ========
 
-A chess game written in javascript.
+A chess game written in JavaScript.
 
 Open the index.html with a browser and the game will begin.
 
