@@ -125,8 +125,8 @@ CH.troop = (function(){
                     new p.Rook(0, 0),
                     new p.Knight(0, 1),
                     new p.Bishop(0, 2),
-                    new p.King(0, 3),
-                    new p.Queen(0, 4),
+                    new p.Queen(0, 3),
+                    new p.King(0, 4),
                     new p.Bishop(0, 5),
                     new p.Knight(0, 6),
                     new p.Rook(0, 7)
