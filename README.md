@@ -9,7 +9,7 @@ Open the index.html with a browser and the game will begin.
 
 ## [Play it now!][ChessTek]
 
-[<img src="./img/screenshot.png" width="340" height="280">][ChessTek]
+[<img src="./img/screenshot.png" height="280">][ChessTek]
 
 
 Donation
